@@ -1,0 +1,8 @@
+>>inputs
+prompt
+>>outputs
+bvalid, output
+>>exec
+input_digits(node['prompt'])
+>>success_var
+bvalid

@@ -1,0 +1,8 @@
+>>inputs
+msg, inp
+>>outputs
+bvalid, dummy
+>>exec
+True, mod_print(node['msg'], node['inp'])
+>>success_var
+bvalid
