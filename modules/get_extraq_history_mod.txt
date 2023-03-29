@@ -3,8 +3,11 @@ fname_extra_history
 >>outputs
 exit_status, history
 >>exec
-with open(fname_extra_history, 'rt') as fh:
-    history = fh.read()
+try:
+    with open(fname_extra_history, 'rt') as fh:
+        history = fh.read()
+except:
+    history = ''
 exit_status = 0
 >>success_var
 exit_status
