@@ -229,7 +229,8 @@ async def get_gpt_response(lprompts, status_msg = '', verify='', on_fail='', num
         
     response = await chatgpt_req(lprompts)
     if len(verify) > 0:
-        bvalid, response = eval(verify.strip() + '(\'' + response + '\')')
+        response.replace('\"', '\'')
+        bvalid, response = eval(verify.strip() + '(\"' + response + '\")')
     else:
         bvalid = True
     if num_iters_left == 0 or bvalid:
@@ -457,11 +458,15 @@ async def exec_flow(conf_nodes):
         nodes[curr_node_name] = curr_node
         curr_node['flow'] = flow[curr_node_name]
         curr_node = await eval_module(flow, nodes, curr_node)
-        if 'next_node' not in curr_node:
+        if curr_node is None:
+            break
+        elif 'next_node' not in curr_node:
             print('flow terminated due to no new requested node.')
             break
-        if curr_node['next_node'] not in flow:
-            print(f"Unknown node {curr_node['next_node']} requested as next node")
+        elif curr_node['next_node'] not in flow:
+            if len(curr_node['next_node']) > 0:
+                print(f"Unknown node {curr_node['next_node']} requested as next node")
+            break
         else:
             curr_node_name = curr_node['next_node']
             
