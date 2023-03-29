@@ -1,0 +1,8 @@
+>>inputs
+lposts
+>>outputs
+exit_status, question
+>>eval
+mod_setup_question(node['lposts'])
+>>success_var
+exit_status

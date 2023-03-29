@@ -1,0 +1,17 @@
+>>inputs
+lscores_similarity, lscores_relevance
+>>outputs
+exit_status, ibest, score_best
+>>exec
+lscores = lscores_relevance if lscores_similarity is None else lscores_similarity
+nd_relevance_scores = np.zeros(len(lscores))
+for iscore, score in enumerate(lscores):
+    try:
+        nd_relevance_scores[iscore] = float(score)
+    except ValueError:
+        nd_relevance_scores[iscore] = -1
+ibest = np.argmax(nd_relevance_scores)
+score_best = nd_relevance_scores[ibest]
+exit_status = 0
+>>success_var
+exit_status

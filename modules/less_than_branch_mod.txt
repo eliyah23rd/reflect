@@ -1,0 +1,8 @@
+>>inputs
+input, thresh
+>>outputs
+exit_status
+>>exec
+exit_status = 0 if input < thresh else 1
+>>success_var
+exit_status

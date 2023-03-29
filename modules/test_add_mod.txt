@@ -2,7 +2,7 @@
 i1, i2
 >>outputs
 bvalid, sum
->>exec
+>>eval
 mod_test_add(node['i1'], node['i2'])
 >>success_var
 bvalid

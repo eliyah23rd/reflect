@@ -1,0 +1,32 @@
+>>inputs
+feedback_question, user_feedback
+>>outputs
+exit_status, feedback_score
+>>vars
+system, status_msg, verify, on_fail
+>>eval_vars
+prompt_template, lprompts
+>>status_msg
+evaluating feedback...
+>>system
+Your role is to evaluate user satisfaction.
+The question that we asked the user is found in the \"Question\" section and the user\'s
+response is found in the "Response" section.
+On a scale of 1 to 9 how would you rate the user\'s satisfaction?
+Please provide only a number from 1 to 10 where 1 indicates that the user is very dissatisfied
+with our answer and 10 indicates that the user is extremely satisfied with our answer.
+It is very important that you only provide a number from 1 to 10 and no other words in your answer.
+I must repeat that you must provide only a single digit in your answer and no other text and
+if you fail to follow this instruction, the answer will disrupt future operation of this program
+>>verify
+one_to_ten
+>>on_fail
+please follow the instructions
+>>prompt_template
+'Question:\\n{question}Response:\\n{answer}'.format(question=node['feedback_question'], answer=node['user_feedback'])
+>>lprompts
+[('system', node['system']), ('user', node['prompt_template'])]
+>>await_eval
+get_gpt_response(node['lprompts'], status_msg=node['status_msg'], verify=node['verify'], on_fail=node['on_fail'], num_iters_left=1)
+>>success_var
+exit_status

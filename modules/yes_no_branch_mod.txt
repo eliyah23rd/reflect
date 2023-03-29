@@ -1,0 +1,8 @@
+>>inputs
+input
+>>outputs
+exit_status
+>>exec
+exit_status = 0 if input.lower() == 'yes' else 1
+>>success_var
+exit_status

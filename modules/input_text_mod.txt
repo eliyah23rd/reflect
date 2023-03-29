@@ -3,6 +3,6 @@ prompt
 >>outputs
 exit_status, output
 >>eval
-input_digits(node['prompt'])
+0, input(node['prompt'])
 >>success_var
 exit_status

@@ -1,0 +1,8 @@
+>>inputs
+fname
+>>outputs
+exit_status, nd_embeds, lposts, lpost_texts, num_posts
+>>eval
+mod_load_posts(node['fname'])
+>>success_var
+exit_status

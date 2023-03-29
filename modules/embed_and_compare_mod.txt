@@ -1,0 +1,8 @@
+>>inputs
+question, nd_embeds
+>>outputs
+exit_status, nd_qembed, nd_scores, nd_idxs_best
+>>eval
+mod_embed_and_compare(node['question'], node['nd_embeds'])
+>>success_var
+exit_status

@@ -1,0 +1,24 @@
+>>inputs
+question, lpost_texts, idxs_best
+>>outputs
+exit_status, lscores
+>>vars
+system, prompt_template, status_msg
+>>status_msg
+checking if relevant...
+>>system
+Your job is to decide whether the question that appears in the \"Question\"
+section of the user role is answered by any of the text that appears in the \"Post\" section
+of the user.
+The text in the Post section is one of the posts written by Eliyah23rd.
+Please provide only a number from 1 to 10 where 1 indicates that the question is not answered
+at all in the post section and 10 indicates that the question is addressed directly.
+It is very important that you only provide a number from 1 to 10 and no other words in your answer.
+>>prompt_template
+Post:\n{Background}\nQuestion:\n{Question}'
+>>ltexts
+[node['lpost_texts'][idx] for idx in node['idxs_best']]
+>>await_eval
+process_multi_texts(node['system'], node['question'], node['lpost_texts'], node['idxs_best'], node['prompt_template'], status_msg=node['status_msg'])
+>>success_var
+exit_status

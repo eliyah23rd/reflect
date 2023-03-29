@@ -1,0 +1,26 @@
+>>inputs
+question, history
+>>outputs
+exit_status, response
+>>vars
+system, verify, on_fail, status_msg
+>>eval_vars
+lprompts
+>>status_msg
+checking whether to verify...
+>>system
+Your role is to decide whether to take an extra step of checking whether a selected piece of text 
+is relevant to the user's question that appears in the "Question" section of the user role.
+Please examine the examples in the history section and answer "yes" if you think we should
+perform the extra relevance test or "no" if you think we should skip it.
+It is very important that you only answer "yes" or "no" and produce no other words in your answer.
+>>verify
+yes_or_no
+>>on_fail
+please follow the instructions
+>>lprompts
+[('system',node['system']), ('user',f'''Question:\n{node['question']}\nHistory:\n\{node['history']}''')]
+>>await_eval
+get_gpt_response(node['lprompts'], status_msg=node['status_msg'], verify=node['verify'], on_fail=node['on_fail'], num_iters_left=1)
+>>success_var
+exit_status

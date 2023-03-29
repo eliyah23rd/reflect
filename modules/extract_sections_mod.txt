@@ -1,0 +1,27 @@
+>>inputs
+question, ibest, lpost_texts, nd_idxs_best
+>>outputs
+exit_status, relevant_sections
+>>vars
+system, status_msg
+>>eval_vars
+idx_best_post, post, prompt_template, lprompts
+>>status_msg
+extracting the relevant section...
+>>system
+Your job is to extract all sections from the text 
+in the \"Post\" section of the user content that would provide
+an answer to the user\'s question in the \"Question\" section.'
+Please do not use the word "Answer" in your response.
+>>idx_best_post
+node['nd_idxs_best'][node['ibest']]
+>>post
+node['lpost_texts'][node['idx_best_post']]
+>>prompt_template
+'Post:\\n{post}\\nQuestion:\\n{question}'.format(post=node['post'], question=node['question'])
+>>lprompts
+[('system', node['system']), ('user', node['prompt_template'])]
+>>await_eval
+get_gpt_response(node['lprompts'], status_msg=node['status_msg'])
+>>success_var
+exit_status

@@ -1,0 +1,9 @@
+>>inputs
+nd_scores, nd_idxs_best
+>>outputs
+exit_status, relevance_scores
+>>exec
+exit_status = 0
+relevance_scores = (nd_scores[nd_idxs_best] * 10).tolist()
+>>success_var
+exit_status

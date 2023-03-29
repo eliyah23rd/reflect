@@ -1,0 +1,13 @@
+>>inputs
+fname_extra_history, extra_validation_response, question, feedback_score
+>>outputs
+exit_status
+>>exec
+extra_history = f'For the question \"{question}\" you answered {extra_validation_response} and the user \
+satisfaction was {feedback_score} out of 10.\n'
+extra_history = ' '.join(extra_history.split())
+with open(fname_extra_history, 'at') as fh_extra_history:
+    fh_extra_history.write(extra_history)
+exit_status = 0
+>>success_var
+exit_status

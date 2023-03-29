@@ -1,8 +1,8 @@
 >>inputs
 msg, inp
 >>outputs
-bvalid, dummy
->>exec
-True, mod_print(node['msg'], node['inp'])
+exit_status, dummy
+>>eval
+0, mod_print(node['msg'], node['inp'])
 >>success_var
-bvalid
+exit_status

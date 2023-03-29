@@ -1,0 +1,30 @@
+>>inputs
+question, relevant_sections, response
+>>outputs
+exit_status, score
+>>vars
+system, lprompts, status_msg, verify, on_fail
+>>eval_vars
+prompt_template, lprompts
+>>status_msg
+verifying response given...
+>>system
+Your job is to determine whether the answer provided in
+\"Answer\" section is supported by the text in the \"Background\"
+section. For reference, the original question appears in the
+\"Question\" section.
+Please provide only a number from 1 to 10 where 1 indicates that the question is not answered
+at all in the post section and 10 indicates that the question is addressed directly.\n
+It is very important that you only provide a number from 1 to 10 and no other words in your answer.
+>>verify
+one_to_ten
+>>on_fail
+please follow the instructions
+>>prompt_template
+'Background:\\n{background}\\nQuestion:\\n{question}Answer:\\n{answer}'.format(background=node['relevant_sections'], question=node['question'], answer=node['response'])
+>>lprompts
+[('system', node['system']), ('user', node['prompt_template'])]
+>>await_eval
+get_gpt_response(node['lprompts'], status_msg=node['status_msg'], verify=node['verify'], on_fail=node['on_fail'], num_iters_left=1)
+>>success_var
+exit_status
